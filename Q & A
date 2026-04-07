@@ -1,1 +1,19 @@
 https://<sap-business-application-studio-url>/ws-manager/api/v1/workspace?all=true - to start the DEV space restart
+
+Access denied for BAS:
+_______________________
+- especially this issue haapens in US region.
+- first need to check basic, if it will not work- then delete the sub account and create the new sub account on Europe region.
+- Basic checks: How to fix the issue?
+  -try to run the SAP BTP incongnito window
+  -check for availability of BAS in entitlements in service assignments on global accounts.
+  -check the BAS subscription iside sub account and check if you are subscribed to BAS. 
+  -GO to SAP BTP Config and check the IDP config( Default Identity Provider) and 
+   see if the role is assigned for your email id.
+  -if roles are not assigned to the mail id for BAS- go to security section in sub account and check if role collection is present and assigned
+   assign the role.
+  -Otherwise recreate the sub account eu region. becuase this problem will occur on US regions only.. 
+
+
+
+
