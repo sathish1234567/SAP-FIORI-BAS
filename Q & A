@@ -14,6 +14,13 @@ _______________________
    assign the role.
   -Otherwise recreate the sub account eu region. becuase this problem will occur on US regions only.. 
 
-
-
+1. if BAS not available in global account     --> add entitilemements -->check the service assignments
+   --> goto entitlements --> add sub account and click on service plans --> to check that- BAS -->check with Trial(Subscruiption)
+2. in sub account also need to take the confirmation for BAS subscription.
+   --> check  BAS subscription -->Trial plan subscribed.
+3.  check bTP IDP config:
+   --> go to the trust config from BTP sub account. --> go to "default IDP (Identity provider') --> click on that (IDP) -->add the mail id.
+   --> check show assignments button --> check the role- "business application studio developer"/"Business application studio extention developer"- role assigned
+   --> if this roles are missed --> you will get the problem.
+  
 
