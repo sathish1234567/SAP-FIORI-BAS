@@ -1,0 +1,37 @@
+-  Created fiori elements application, but i am unable to execute/ get the preivew.check below snapshot?
+>npm run start
+>fiori run --open "test/flp.html#app-preview"
+Error : fiori not found.
+
+Error:
+
+> ysattravelinfo@0.0.1 start
+> fiori run --open "test/flp.html#app-preview"
+
+Fatal Error: Unable to initialize UI5 CLI
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/home/user/projects/ysattravelinfo/node_modules/@ui5/cli/node_modules/@ui5/project/config/Configuration' imported from /home/user/projects/ysattravelinfo/node_mod
+
+Solution:
+That message means the UI5 CLI is starting, but it is loading a broken or mismatched install: Node is trying to load @ui5/project from inside @ui5/cli’s nested node_modules, and the file it expects (config/Configuration) is not there. That usually comes from a corrupt node_modules, a bad lockfile, or incompatible @ui5/cli / @ui5/project versions.
+1. Clean reinstall (try this first)
+In /home/user/projects/ysattravelinfo (your app root):
+rm -rf node_modules package-lock.json
+npm cache verify
+npm install
+npm run start
+
+2. If it still fails: align UI5 tooling versions
+Open package.json and check devDependencies for @ui5/cli, @sap/ux-ui5-tooling, and sometimes @ui5/middleware-*.
+Prefer letting the Fiori generator / template versions stay as a set; avoid hand-picking very different major versions of @ui5/cli and @sap/ux-ui5-tooling.
+Then:
+rm -rf node_modules package-lock.json
+npm install
+npm run start
+
+3. Optional: force a consistent @ui5/project
+If the error still mentions @ui5/project, add an explicit compatible version (your team’s BAS might document the recommended pair; if not, match what a new Fiori Elements app from the wizard uses):
+(or the version that matches your @ui5/cli major version), then reinstall as in step 1.
+4. BAS / dev space
+On SAP Business Application Studio, also try Terminal → new terminal after reinstall, and confirm you are in the folder that contains package.json for ysattravelinfo, not a parent monorepo folder.
+Root cause in plain terms: the installed UI5 packages are incomplete or inconsistent, so @ui5/cli imports a path that does not exist in your tree. A full delete of node_modules + lockfile + npm install fixes this in most cases.
+If you paste your package.json devDependencies (and the exact full error line if it continues after reinstall), we can suggest concrete version pins.
